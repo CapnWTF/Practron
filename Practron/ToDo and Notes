@@ -1,0 +1,56 @@
+To do List OH YEEAAART
+
+this list is for things that need to be changed in-game or implemented in the future, as well as reminders for general notes,
+those are at the bottom though
+
+things to do:
+-rework the movement system to accept 9 directions, and give them values based 
+ on FGC number inputs for ease of access (0 is neutral, 2 is down, 4 is right, 6 is up, etc)
+
+-get an art skill so that I can have tiles that don't look like a garbage.
+
+-proper animation system and state numbers
+
+-make the game more debug friendly with key bindings that do things like clear the screen, show/hide certain data,
+things of that nature.
+
+
+
+
+notes:
+The general idea is for each player class to have 4-5 normal attacks, a "Get-Off" attack in typical brawler fashion,
+at least one "skill" that is dedicated to a "skill button", 
+normal attacks are "heavy attacks" and "light attacks"
+current setup is to be VF style: P(unch) K(ick) G(uard) and T(hrow) along with a S(kill) button for special attacks.
+there would be with this system a total of 14 possible inputs a player can put in.
+
+Each player class should have these essentials : get hit (light and heavy, possibly a stun as well), jump, guard, walk, turn, and get thrown,
+and jump animations. 
+
+I need an input buffer that checks the last 15 or so inputs given to be able to see if special moves are being performed
+
+enemy placement patterns are not to be randomized, that's how you fuck up.
+
+Level structure should be along the lines of (start>mid-boss>break>start2>BOSS)
+with the BOSS of each level having at least 2 phases, normal and <PINCH>
+<PINCH> is a state they go into only when their health is low, their patterns change up and their damage goes up, and if
+possible I'd like their theme to speed up and go into a higher octave ala SA2
+
+VISUALS:
+I'd like to have cooler colors for backgrounds and characters, and warmer/hot colors for sparks and flashes and whatnot
+I'd like to put as much Maryland into this game as possible
+
+
+
+MODE IDEAS:
+normal mode: simple sidescrolling beat-em-up with co-op elements can be done alone, but more fun with more ones
+ARCADE mode: instead of normal mode, players deal and take more damage, difficulty scaling much harsher as time goes on
+lives are kept based on the number of QUARTERS the player has, when you run out of lives you use a QUARTER to keep going.
+(THe number of lives given per quarter is yet to be determined. probably 1-3 per quarter) QUARTERS can be gained by performing
+specific difficult actions or by finding them hidden in levels, these should be scarce though.
+SCUFFLE: Players are instead pit against one another to fight, there should be some in-game reward for winning. perhaps in ARCADE
+you can steal a QUARTER off of another player should you win.
+I would eventually like to make the game 3-6 hours long but replayable, but for now I'll just make a single level for making a proof
+of concept. 
+
+
