@@ -13,7 +13,8 @@ public class Tile
 {
 	public int x;
 	public int y;
-
+	public int width;
+	public int height;
 	public Sprite sprite;
 	
 	public static Tile sky = new SkyTile(Sprite.sky);
@@ -21,6 +22,10 @@ public class Tile
 	public static Tile lava = new LavaTile(Sprite.grass);
 	public static Tile luna = new LunaTile(Sprite.luna);
 	public static Tile voidTile = new VoidTile(Sprite.voidSprite);
+	public static Tile purp = new FloorTile(Sprite.purp);
+	public static Tile wood = new FloorTile(Sprite.wood);
+	public static Tile black = new FloorTile(Sprite.black);
+	public static Tile orang = new FloorTile(Sprite.orang);
 	
 	//Spawn Tiles
 	public static Tile floor1 = new FloorTile(Sprite.floor1);

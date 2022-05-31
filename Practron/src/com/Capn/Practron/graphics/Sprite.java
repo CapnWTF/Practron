@@ -1,18 +1,25 @@
 package com.Capn.Practron.graphics;
 
+import java.awt.Color;
+
 public class Sprite {
 	public final int SIZE;
 	private int x, y;
 	private int width;
 	private int height;
 	public int[] pixels;
-	private SpriteSheet sheet;
+	protected SpriteSheet sheet;
 	
 	//generics
-	public static Sprite sky = new Sprite(16,0,0,SpriteSheet.tiles);
-	public static Sprite lava = new Sprite(16,1,0,SpriteSheet.tiles);
-	public static Sprite grass = new Sprite(16,0,1,SpriteSheet.tiles);
-	public static Sprite luna = new Sprite(16,1,1, SpriteSheet.tiles);
+	//Sample Generic Tile : public static Sprite lava = new Sprite(16,1,0,SpriteSheet.tiles);
+	public static Sprite sky = new Sprite(16,Color.BLUE.getRGB());
+	public static Sprite lava = new Sprite(16,Color.RED.getRGB());
+	public static Sprite grass = new Sprite(16,Color.GREEN.getRGB());
+	public static Sprite luna = new Sprite(16,Color.PINK.getRGB());
+	public static Sprite wood = new Sprite(16,Color.YELLOW.darker().getRGB());
+	public static Sprite purp = new Sprite(16,0x330066);
+	public static Sprite black = new Sprite(16, Color.BLACK.getRGB());
+	public static Sprite orang = new Sprite(16, Color.ORANGE.getRGB());
 	public static Sprite voidSprite = new Sprite(16,0x2b6bff);
 	
 	//spawn level sprites
@@ -39,6 +46,9 @@ public class Sprite {
 	public static Sprite playerU = new Sprite(32,2,0,SpriteSheet.tiles);
 	public static Sprite playerD = new Sprite(32,2,1,SpriteSheet.tiles);
 	
+	
+	public static Sprite dummy = new Sprite(32,0,0,SpriteSheet.dummyIdle);
+	
 	public static Sprite playerSide1 = new Sprite(32,2,0,SpriteSheet.tiles);
 	public static Sprite playerSide2 = new Sprite(32,3,0,SpriteSheet.tiles);
 	
@@ -53,9 +63,16 @@ public class Sprite {
 	public static Sprite cursor = new Sprite(16,1,1,SpriteSheet.projectile_mega);
 	//Particle Sprites
 	
-	public static Sprite particle_normal = new Sprite(3, 0xAAAAAA);
+	public static Sprite particle_normal = new Sprite(3, 0x136207);
 	
 	//sprite methods
+	protected  Sprite(int width, int height,  SpriteSheet sheet){
+		if(width == height) SIZE = width;
+		else SIZE = -1;
+		this.sheet = sheet;
+		this.width = width;
+		this.height = height;
+	}
 	
 	public  Sprite(int size, int x, int y, SpriteSheet sheet)
 	{
@@ -90,6 +107,16 @@ public class Sprite {
 		return height;
 	}
 	
+	public int getX()
+	{
+		return x;
+	}
+	
+	public int getY()
+	{
+		return y;
+	}
+	
 	public Sprite(int size, int color)
 	{
 		SIZE = size;
@@ -101,6 +128,20 @@ public class Sprite {
 	
 	
 	
+	public Sprite(int[] pixels, int width, int height) {
+		if(width == height) {
+			SIZE = width;
+			}
+		else
+			{
+			SIZE = -1;
+			};
+		this.width = width;
+		this.height = height;
+		this.pixels = pixels;
+	
+	}
+
 	private void setColor(int color)
 	{
 		for (int i = 0; i < width*height;i++)
@@ -115,7 +156,7 @@ public class Sprite {
 		{
 			for(int x = 0;x < SIZE; x++)
 			{
-				pixels[x+(y*SIZE)] = sheet.pixels[(x+this.x)+ (y+this.y)*sheet.SIZE];
+				pixels[x+(y*width)] = sheet.pixels[(x+this.x)+ (y+this.y)*sheet.WIDTH];
 			}
 		}
 	}

@@ -14,9 +14,12 @@ import javax.swing.JFrame;
 
 import com.Capn.Practron.Input.Kbd;
 import com.Capn.Practron.Input.Mouse;
+import com.Capn.Practron.entity.Entity;
 import com.Capn.Practron.entity.mob.Player;
+import com.Capn.Practron.entity.mob.Star;
 import com.Capn.Practron.graphics.Screen;
 import com.Capn.Practron.graphics.Sprite;
+import com.Capn.Practron.graphics.SpriteSheet;
 import com.Capn.Practron.level.Level;
 import com.Capn.Practron.level.RandomLevel;
 import com.Capn.Practron.level.SpawnLevel;
@@ -38,6 +41,7 @@ public class Game extends Canvas implements Runnable
 	private Level level;
 	private Player player;
 	private boolean running = false;
+	private Star Star;
 	
 	private Screen screen;
 	public static int buttontick = 20; //number of frames between button input checks (for lower priority buttons)
@@ -55,7 +59,9 @@ public class Game extends Canvas implements Runnable
 		level = Level.spawn;
 		TileCoord pSpawn = new TileCoord(20,20);
 		player = new Player(pSpawn.x(),pSpawn.y(),key);
-		player.init(level);
+		Star = new Star(pSpawn.x()+40,pSpawn.y()+10);
+		level.add(player);
+		//level.add(Star);
 		addKeyListener(key); //always add the keylistener after you set the new Kbd object to prevent a null pointer exception
 		Mouse mouse = new Mouse();
 		addMouseListener(mouse);
@@ -119,7 +125,7 @@ public class Game extends Canvas implements Runnable
 			if(System.currentTimeMillis()- timer > 1000)
 			{
 				timer += 1000;
-				System.out.println(ticks + " tps, " + frames + "fps");
+				//System.out.println(ticks + " tps, " + frames + "fps");
 				frame.setTitle(title + "  |  "+ ticks + " , " + frames);
 				ticks = 0;
 				frames = 0;
@@ -133,7 +139,6 @@ public class Game extends Canvas implements Runnable
 	public void tick()//updates
 	{
 		key.update();
-		player.update();
 		level.update();
 	
 	} //background logic and calculations (end tick)
@@ -148,12 +153,12 @@ public class Game extends Canvas implements Runnable
 	 	
 	 	screen.clear();//blanks the screen so that the render doesn't artifact all over the damn place
 	 	
-	 	int xScroll = player.x - screen.width/2;
-	 	int yScroll = player.y - screen.height/2;
+	 	double xScroll = player.getX() - screen.width/2;
+	 	double yScroll = player.getY() - screen.height/2;
 	 	
-	 	level.render(xScroll, yScroll, screen);
-	 	player.render(screen);
+	 	level.render((int)xScroll, (int)yScroll, screen);
 	 	
+	 	//screen.renderSheet(40, 40, SpriteSheet.player_down, false);
 	 	
 	 	for(int i = 0;i<pixels.length;i++)
 	 	{
@@ -167,9 +172,11 @@ public class Game extends Canvas implements Runnable
 	 g.drawImage(image,0,0,getWidth(),getHeight(),null);
 	 g.setColor(Color.WHITE);
 	 g.setFont(new Font("Verdana",0,30));
-	 g.drawString("X: " + player.x + ", Y: " + player.y, 350, 300);
+	 g.drawString("X: " + player.getX() + ", Y: " + player.getY(), 350, 300);
 	 //g.fillRect(Mouse.getX()-32, Mouse.getY()-32, 64, 64);
 	 g.drawString("Button: "+ Mouse.getB(), 80,80);
+	 g.drawString("X: " + player.getX() + ", Y: " + player.getY(), screen.width-30, screen.height-30);
+	 
 	 g.dispose();//screen clear/ garbage collector
 	 bs.show();//display screen buffer
 	} //foreground logic and calculations(screen updates, refreshes, etc.)

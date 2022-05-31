@@ -9,7 +9,7 @@ public class MegaShot extends Projectile{
 
 	public static final int FIRE_RATE = 10; //higher rate is slower fire
 	
-	public MegaShot(int x, int y, double dir) {
+	public MegaShot(double x, double y, double dir) {
 		super(x, y, dir);
 		range = 200;
 		speed = 10;
@@ -45,7 +45,7 @@ public class MegaShot extends Projectile{
 		y += ny;
 		
 		
-		System.out.println("Distance: " + distance());
+		//System.out.println("Distance: " + distance());
 		if(distance() > range )
 		{
 			remove();

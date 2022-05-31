@@ -51,9 +51,9 @@ public class Particle extends Entity{
 		if(zz < 0)
 		{
 			zz = 0;
-			za *= -.5;
-			xa *= .3;
-			ya *= .3;
+			za *= -.55;
+			xa *= .4;
+			ya *= .4;
 		}
 		move((xx+xa),(yy + ya)+(zz+za));
 		
@@ -101,6 +101,6 @@ public class Particle extends Entity{
 
 	public void render(Screen screen)
 	{
-		screen.renderSprite((int)xx , (int)yy +1 - (int)zz, sprite, true);
+		screen.renderSprite((int)xx-1 , (int)yy +1 - (int)zz, sprite, true);
 	}
 }

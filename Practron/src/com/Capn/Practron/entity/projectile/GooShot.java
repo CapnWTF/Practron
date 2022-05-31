@@ -9,7 +9,7 @@ public class GooShot extends Projectile{
 
 	public static final int FIRE_RATE = 25; //higher rate is slower fire
 	
-	public GooShot(int x, int y, double dir) {
+	public GooShot(double x, double y, double dir) {
 		super(x, y, dir);
 		range = 200;
 		speed = 5;
@@ -25,10 +25,17 @@ public class GooShot extends Projectile{
 		if(level.tileCollision((int)(x + nx),(int)(y + ny),11,2,4))
 		{
 			nx = (nx*-1);
-			ny = (ny * -1);
+			//ny = (ny * -1);
 			
 			
 		}
+		/*if(level.tileCollision((int)(x + nx),(int)(0 + 0),11,2,4))
+		{
+			
+			ny = (ny * -1);
+			
+			
+		}*/
 		if(time >= range)
 		{
 			remove();
@@ -51,7 +58,7 @@ public class GooShot extends Projectile{
 		y += ny;
 		time++;
 		
-		System.out.println("Distance: " + distance());
+		//System.out.println("Distance: " + distance());
 		if(distance() > range )
 		{
 			remove();

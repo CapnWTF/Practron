@@ -6,8 +6,8 @@ import com.Capn.Practron.graphics.Sprite;
 public abstract class Projectile extends Entity
 {
 
-	protected final int xOrigin;
-	protected final int yOrigin;
+	protected final double xOrigin;
+	protected final double yOrigin;
 	protected double angle;
 	protected Sprite sprite;
 	protected double x;
@@ -22,7 +22,7 @@ public abstract class Projectile extends Entity
 	protected int time = 0;
 	
 	
-	public Projectile(int x, int y, double dir)
+	public Projectile(double x, double y, double dir)
 	{
 		xOrigin = x;
 		yOrigin = y;

@@ -1,20 +1,31 @@
 package com.Capn.Practron.entity.mob;
 
+import java.util.List;
+
 import com.Capn.Practron.Game;
 import com.Capn.Practron.Input.Kbd;
 import com.Capn.Practron.Input.Mouse;
+import com.Capn.Practron.entity.Entity;
 import com.Capn.Practron.entity.projectile.GooShot;
 import com.Capn.Practron.entity.projectile.MegaShot;
 import com.Capn.Practron.entity.projectile.Projectile;
+import com.Capn.Practron.graphics.AnimatedSprite;
 import com.Capn.Practron.graphics.Screen;
 import com.Capn.Practron.graphics.Sprite;
+import com.Capn.Practron.graphics.SpriteSheet;
+import com.Capn.Practron.util.Debug;
 
 public class Player extends Mob
 {
 	private Kbd input;
 	private Sprite sprite;
 	private int anim = 0;
-	private boolean walking = false;
+	
+	private AnimatedSprite down = new AnimatedSprite(SpriteSheet.player_down,32,32,6);
+	private AnimatedSprite up = new AnimatedSprite(SpriteSheet.player_up,32,32,6);
+	private AnimatedSprite left = new AnimatedSprite(SpriteSheet.player_left,32,32,6);
+	private AnimatedSprite right = new AnimatedSprite(SpriteSheet.player_right,32,32,6);
+	private AnimatedSprite animSprite = down;
 	
 	Projectile p;
 	public int fireRate = 0;
@@ -35,7 +46,7 @@ public class Player extends Mob
 		this.y = y;
 		this.input = input;
 		fireRate = MegaShot.FIRE_RATE;
-		this.weapon = weapon;
+		this.weapon = 0;
 		
 	}
 	public void clear()
@@ -53,6 +64,11 @@ public class Player extends Mob
 	
 	public void update()
 	{
+		double speed = 2;
+		if(walking){
+			animSprite.update();
+		}
+		else animSprite.setFrame(0);
 		if(fireRate > 0)
 		{
 			fireRate--;
@@ -72,15 +88,14 @@ public class Player extends Mob
 		if(input.weapondown && buttontick <= 0 )
 		{
 			weapon--;
-			if(weapon <0) weapon = 0;
+			if(weapon <=0) weapon = 0;
 			System.out.println("weapon down" + weapon);
 			buttontick = Game.buttontick;
 		}
 		
-		//410-919-9530
 		
-		int xa = 0;
-		int ya = 0;
+		double xa = 0;
+		double ya = 0;
 		
 		if(anim<6000){ anim++;}
 		else {anim = 0;}
@@ -89,26 +104,36 @@ public class Player extends Mob
 		
 		if (input.up)
 		{
-		ya--;
+			ya-= speed;
+		animSprite = up;
 		}
 		
 		if (input.down)
 		{
-			ya++;
+			ya+= speed;
+			animSprite = down;
 		}
 		
 		if (input.left)
 		{
-			xa--;
+			xa-= speed;
+			animSprite = left;
 		}
 		
 		if (input.right)
 		{
-			xa++;
+			xa+= speed;
+			animSprite = right;
 		}
 		
 		if(xa !=0 || ya!= 0)
+		{if (xa != 0 && ya !=0)
 		{
+			xa*=.4;
+			ya*=.4;
+			//xa *= .9;
+			//ya *= .9;
+		}
 			move(xa,ya);
 			walking = true;
 		}
@@ -132,6 +157,7 @@ public class Player extends Mob
 			{
 			fireRate = MegaShot.FIRE_RATE;
 			}
+			else
 			if(weapon == 1)
 			{
 				fireRate = GooShot.FIRE_RATE;
@@ -147,7 +173,7 @@ public class Player extends Mob
 	{
 		int flip = 0;
 		// direction 3 is left, 1 is right, 0 is down, 2 is up
-		if(dir == 0) 
+		/*if(dir == 0) 
 			{
 			sprite = Sprite.playerSideGun0;
 			if(walking)
@@ -175,13 +201,15 @@ public class Player extends Mob
 				}
 			}
 		}
-		
-		if(dir == 2) {sprite = Sprite.playerSide0;}
-		if(dir == 1) {flip = 1;}
-		
+		*/
+		//if(dir == 2) {sprite = Sprite.playerSide0;}
+		if(dir == Direction.LEFT) {flip = 1;}
+		//System.out.println("Direction is: "+ dir);
 		 
-		screen.renderPlayer(x-16, y-16, sprite, flip);
-		
+		sprite = animSprite.getSprite();
+		 screen.renderMob((int)(x), (int)(y), sprite, flip);
+			//Debug.drawRect(screen, x, y+16, 16, 16, 0xc00d31, true);
+			Debug.drawRect(screen, x, y, ((x )- 0%2*16) /16, ((y + 0)- 1/2*16) /16, 0xffffff, true);
 		
 		
 		/*

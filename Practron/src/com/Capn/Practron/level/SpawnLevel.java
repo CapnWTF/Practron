@@ -5,6 +5,11 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import com.Capn.Practron.entity.mob.Chaser;
+import com.Capn.Practron.entity.mob.Dummy;
+import com.Capn.Practron.entity.mob.Player;
+import com.Capn.Practron.entity.mob.Shooter;
+import com.Capn.Practron.entity.mob.Star;
 import com.Capn.Practron.level.Tile.Tile;
 
 public class SpawnLevel extends Level
@@ -36,7 +41,14 @@ public class SpawnLevel extends Level
 			e.printStackTrace();
 			System.out.println("Level file load FAILED");
 		}
-		
+		//add(new Player (20,20,screen.k));
+		//add(new Star(20,20));
+		for ( int i = 0; i < 1; i++)
+		{
+		add(new Star (15,20));
+		//add(new Chaser (30,25));
+		}
+		//add(new Shooter(40,30));
 	}
 	
 	//Grass = 0xFFFF00
@@ -46,7 +58,7 @@ public class SpawnLevel extends Level
 	
 	protected void generateLevel()
 	{
-		System.out.println("Tiles:" + tiles[0]);
+		//System.out.println("Tiles:" + tiles[0]);
 		}
 		
 		
